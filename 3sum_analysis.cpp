@@ -8,6 +8,7 @@
 
 using namespace std;
 
+//3sum brute force solution
 vector<vector<int>> threeSum(vector<int>& nums) {
         set<vector<int>> uniqueTriplets;
         int n = nums.size();
@@ -29,15 +30,14 @@ vector<vector<int>> threeSum(vector<int>& nums) {
     }
  
 
+//time tests
 int main() {
-    // Define input sizes for analysis
+
     vector<int> input_sizes = {100, 200, 400, 800, 1600};
 
-    // Prepare CSV file to store runtime data
     ofstream outfile("runtime_data.csv");
     outfile << "n,time_ms\n";
 
-    // Random number generation setup
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dist(-1000, 1000);
@@ -45,19 +45,19 @@ int main() {
     for (int n : input_sizes) {
         vector<int> nums;
 
-        // Ensure at least one valid triplet
+        
         int a = dist(gen);
         int b = dist(gen);
         nums.push_back(a);
         nums.push_back(b);
         nums.push_back(-(a + b));
 
-        // Fill the rest of the array
+        
         while (nums.size() < n) {
             nums.push_back(dist(gen));
         }
 
-        // Measure execution time
+        
         auto start = chrono::high_resolution_clock::now();
         vector<vector<int>> result = threeSum(nums);
         auto end = chrono::high_resolution_clock::now();
@@ -65,7 +65,7 @@ int main() {
         chrono::duration<double, milli> duration = end - start;
         double time_ms = duration.count();
 
-        // Output and log the results
+        
         cout << "n = " << n << ", time = " << time_ms << " ms" << endl;
         outfile << n << "," << time_ms << "\n";
     }
